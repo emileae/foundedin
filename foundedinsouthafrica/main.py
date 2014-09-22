@@ -25,6 +25,8 @@ from datetime import datetime, timedelta
 import datetime
 import time
 
+from urlparse import urlparse
+
 from google.appengine.ext import ndb
 from google.appengine.api import images
 from google.appengine.api import memcache
@@ -82,6 +84,10 @@ class AddStartup(MainHandler):
         q4 = self.request.get("q4")
         q5 = self.request.get("q5")
         q6 = self.request.get("q6")
+
+        o = urlparse(q3)
+        if 'http' not in o.scheme:
+            q3 = "http://%s" % q3 
 
         su = model.Startup(q1=q1, q2=q2, q3=q3, q4=q4, q5=q5, q6=q6)
         su.put()
