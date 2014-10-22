@@ -92,7 +92,7 @@ a.no-link {
 }
 
 .container > header {
-	padding: 2.875em 1.875em 3.750em;
+	padding: 2.875em 1.875em 0em;
 }
 
 .container > header img {
@@ -254,6 +254,24 @@ a.no-link {
 	color:#008008;
 	background-color:#fff;
 	text-decoration: none;
+}
+
+.long_input{
+	width: 250px;
+}
+
+.sm_button{
+	display: inline-block;
+	height: 25px;
+	width: auto;
+	cursor: pointer;
+	border: 1px solid white;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+.sm_button:hover{
+	color: rgb(200, 200, 200);
+	background-color: rgb(50, 100, 50);
 }
 
 

@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+
+{% block header %}
+{% endblock %}
+
+{% block companies %}
+	<ul>
+		{% for f in features %}
+			<li><a href="/feature/{{f.key.id()}}">Featured: {{f.startup.get().q1}}</a></li>
+		{% endfor %}
+	</ul>
+
+{% endblock %}
+
+

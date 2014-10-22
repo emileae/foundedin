@@ -1,0 +1,128 @@
+{% extends "dashboard_base.html" %}
+
+{% block style %}
+    .dark{
+        background-color: rgb(100, 100, 100);
+    }
+{% endblock %}
+
+{% block page_name %}
+    Featured Pages
+{% endblock %}
+
+{% block breadcrumbs %}featured pages{% endblock %}
+
+{% block main %}
+    {% for s in startups %}
+            <div id="startup_{{s.key.id()}}" class="well dark">
+                <a href="{{s.q3}}" target="_blank"><h3>{{s.q1}}</h3></a>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <span class="delete btn btn-danger" data-id="{{s.key.id()}}">Delete</span>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <img src="{{s.q5}}" width="100px">
+                    </div>
+                    <div class="col-lg-6">
+                        <img src="{{s.new_logo}}" width="100px">
+                    </div>
+                </div>
+
+                <br>
+
+                <form id="new_logo_form_{{s.key.id()}}" action="" method="post" enctype="multipart/form-data" class="new_logo_form">
+                    <input type="file" class="new_logo" name="new_logo" accept="image/*" />
+                    <br>
+                    <span class="new_logo_submit btn btn-primary" data-id="{{s.key.id()}}">Upload new logo</span>
+                </form>
+            </div>
+        {% endfor %}
+{% endblock %}
+
+{% block script %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+    $("body").on("click", ".delete", function(){
+        var del_id = $(this).data("id");
+        
+        function success(data){
+            $("#startup_"+del_id).remove();
+        };
+
+        var data = {"id": del_id};
+        
+        $.ajax({
+            type: "post",
+            data: data,
+            url: '/delete_startup',
+            success: success
+        }).fail(function(e){
+            alert("error - delete startup");
+        });
+
+    });
+
+    $("body").on("click", ".new_logo_submit", function(){
+        var startup_id = $(this).data("id");
+
+        function success(data){
+            $("#new_logo_form_"+startup_id).attr("action", data['url']);
+            $("#new_logo_form_"+startup_id).submit()
+        };
+
+        $.ajax({
+            type: "get",
+            data: {"startup_id": startup_id},
+            url: '/get_upload_url',
+            success: success
+        }).fail(function(e){
+            alert("error - delete startup");
+        });
+
+    });
+</script>
+
+{% endblock %}
+
+{% block modal %}
+    <div id="save_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title">Message</h4>
+            </div>
+          <div class="panel panel-success ext-center">Saved</div>
+        </div>
+      </div>
+    <div id="error_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title">Message</h4>
+            </div>
+
+          <div class="panel panel-danger ext-center">Error saving</div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+

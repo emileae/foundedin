@@ -1,0 +1,77 @@
+{% extends "index.html" %}
+{% block header %}
+{% endblock %}
+{% block companies %}
+    <h1>DASHBOARD</h1>
+    <div>
+        <a href="/dashboard/startup_emails">Startup email csv</a> --- <a href="/dashboard/earlyadopter_emails">Early Adopter email csv</a>
+    </div>
+    <hr>
+	<ul>
+        {% for s in startups %}
+        <li style="margin:0.5em">
+            <u>{{s.q1}}</u><br>
+                <form method="post" action="/add_email">
+                    <input type="text" name="website" value="{{s.q3}}" placeholder="website" class="website long_input"><br>
+                    <input type="text" name="twitter_handle" value="{{s.q4}}" placeholder="twitter handle" class="twitter_handle"><br>
+                    <input type="text" name="contact_person" value="{{s.q6}}" placeholder="contact person" class="contact_person"><br>
+                    <input type="email" name="email" value="{{s.q7}}" class="email">{% if not s.q7 %}No email{% endif %}(priority)<br>
+                    <input type="email" name="other_mails" class="long_input other_mails" placeholder="other mails (comma separated)" 
+                    
+                    value="{% for e in s.add_emails %}{{e}}{% if not loop.last %}, {% endif %}{% endfor %}">
+
+                    <input type="hidden" name="sid" value="{{s.key.id()}}" class="sid">
+
+                    <div class="sm_button add">Add</div>
+                </form>
+            <hr>
+        </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
+
+{% block join %}
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        $("body").on("click", ".add", function(){
+            
+            var $this = $(this);
+
+            var website = $this.siblings(".website").val();
+            var twitter_handle = $this.siblings(".twitter_handle").val();
+            var contact_person = $this.siblings(".contact_person").val();
+            var email = $this.siblings(".email").val();
+            var sid = $this.siblings(".sid").val();
+            var other_mails = $this.siblings(".other_mails").val();
+
+            var data = {
+                "website": website,
+                "twitter_handle": twitter_handle,
+                "contact_person": contact_person,
+                "email": email,
+                "sid": sid,
+                "other_mails": other_mails,
+            };
+
+            function success(data){
+                if(data["message"] == "ok"){
+                    alert("added");
+                }else{
+                    alert("not added - "+data["message"]);
+                };
+            };
+
+            $.ajax({
+                type: "post",
+                data: data,
+                url: '/add_email',
+                success: success
+            }).fail(function(e){
+                alert("error - add email");
+            });
+        });
+    </script>
+{% endblock %}

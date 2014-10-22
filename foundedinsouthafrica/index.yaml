@@ -10,6 +10,12 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
+- kind: Feature
+  properties:
+  - name: live
+  - name: created
+    direction: desc
+
 - kind: Startup
   properties:
   - name: approved

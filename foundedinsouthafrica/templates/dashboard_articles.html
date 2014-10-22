@@ -1,0 +1,149 @@
+{% extends "dashboard_base.html" %}
+
+{% block style %}
+    .inline{
+        display: inline-block;
+    }
+{% endblock %}
+
+{% block page_name %}
+    Featured Pages
+{% endblock %}
+
+{% block breadcrumbs %}featured pages{% endblock %}
+
+{% block main %}
+    {% for a in articles %}
+    <div class="row">
+        <div class="col-lg-12">
+        <h3>{{a.startup.get().q1}}</h3>
+
+            <a class="btn btn-warning" href="/dashboard/feature_edit/{{a.key.id()}}">Edit</a>
+
+            <form id="forma_{{a.key.id()}}" method="post" action="/feature_golive/{{a.key.id()}}" role="form" class="activate_form inline {% if a.live %}hide{% endif %}">
+                <input id="submita_{{a.key.id()}}" type="submit" class="btn btn-success add" value="Go Live">
+            </form>
+
+            <form id="formd_{{a.key.id()}}" method="post" action="/feature_deactivate/{{a.key.id()}}" role="form" class="inline deactivate_form {% if not a.live %}hide{% endif %}">
+                <input id="submitd_{{a.key.id()}}" type="submit" class="btn btn-danger add" value="Deactivate">
+            </form>
+
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}
+
+{% block script %}
+
+    <script type="text/javascript">
+        $("body").on("submit", ".activate_form", function(e){
+            
+            e.preventDefault();
+
+            var $this = $(this);
+
+            var action = $this.attr("action")
+
+            var data = {};
+
+            function success(data){
+                if(data["message"] == "ok"){
+                    $("#forma_"+data["id"]).addClass("hide");
+                    $("#formd_"+data["id"]).removeClass("hide");
+                    //$('#activated_modal').modal('show');
+                }else{
+                    $('#error_modal').modal('show');
+                };
+            };
+
+            $.ajax({
+                type: "post",
+                data: data,
+                url: action,
+                success: success
+            }).fail(function(e){
+                alert("error - add email");
+            });
+        });
+        $("body").on("submit", ".deactivate_form", function(e){
+            
+            e.preventDefault();
+
+            var $this = $(this);
+
+            var action = $this.attr("action")
+
+            var data = {};
+
+            function success(data){
+                if(data["message"] == "ok"){
+                    $("#formd_"+data["id"]).addClass("hide");
+                    $("#forma_"+data["id"]).removeClass("hide");
+                    //$('#deactivated_modal').modal('show');
+                }else{
+                    $('#error_modal').modal('show');
+                };
+            };
+
+            $.ajax({
+                type: "post",
+                data: data,
+                url: action,
+                success: success
+            }).fail(function(e){
+                alert("error - add email");
+            });
+        });
+    </script>
+
+{% endblock %}
+
+{% block modal %}
+    <div id="activated_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title">Message</h4>
+            </div>
+          <div class="panel panel-success text-center">Activated</div>
+        </div>
+      </div>
+    </div>
+    <div id="deactivated_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title">Message</h4>
+            </div>
+          <div class="panel panel-success text-center">Deactivated</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="error_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title">Message</h4>
+            </div>
+
+          <div class="panel panel-danger text-center">Error activating/deactivating</div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+

@@ -25,6 +25,29 @@ except ImportError:
 import model
 
 MANDRILL_KEY = ""#Provide your mandrill api key here
+
+CONSUMER_KEY = ""#include twitter CONSUMER_KEY
+CONSUMER_SECRET = ""#include twitter CONSUMER_SECRET
+    
+ACCESS_TOKEN_KEY = ""#include twitter ACCESS_TOKEN_KEY
+ACCESS_TOKEN_SECRET = ""#include twitter ACCESS_TOKEN_SECRET
+
+notification_email1 = ""# emails to send notifications to when a startup is added... include 3
+notification_email2 = ""
+notification_email3 = ""
+
+tweet_message_1 = ""#include 2 different tweet messages to automatically tweet once startups are added
+tweet_message_2 = ""
+
+from_email = ""# add a from email
+
+#-----------------------------------------------------------------
+#
+# !!! Be sure to change the email templates for early adopters
+# !!! At the bottom of the file
+#
+#-----------------------------------------------------------------
+
         
 # for uploading a processed, white logo to the blobstore
 def request_blob_url(self, callback_url, max_bytes):
@@ -63,7 +86,7 @@ def send_mail(email, ea_id, html):
             "html": html,
             "text": "Congratulations, you're a pioneer!",
             "subject": "Foundedin South Africa - Early Adopter",
-            "from_email": "hello@wearesupernice.com",
+            "from_email": from_email,
             "from_name": "Founded in South Africa",
             "to": [
                 {
@@ -73,7 +96,7 @@ def send_mail(email, ea_id, html):
                 }
             ],
             "headers": {
-                "Reply-To": "hello@wearesupernice.com"
+                "Reply-To": from_email
             },
             "important": False,
             "track_opens": None,
@@ -130,7 +153,95 @@ def send_mail(email, ea_id, html):
     result = urlfetch.fetch(url=url, payload=json.dumps(form_json), method=urlfetch.POST)#, #headers={'Content-Type': 'application/x-www-form-urlencoded'})
 
     
+#Send a mail to your early evangelists
+def send_notification_mail(email1, email2, email3, name):
     
+    url = "https://mandrillapp.com/api/1.0/messages/send.json"
+
+    html = "<p>A new startup has been added: <u>%s</u></p>" % name
+
+    #modify text to suite your startup, also see the mailer.html template and adapt for a sweet html mailer
+    form_json = {
+        "key": MANDRILL_KEY,
+        "message": {
+            "html": html,
+            "text": "New Startup",
+            "subject": "Foundedin South Africa - New Startup",
+            "from_email": from_email,
+            "from_name": "Founded in South Africa",
+            "to": [
+                {
+                    "email": email1,
+                    "name": "admin",
+                    "type": "to"
+                },
+                {
+                    "email": email2,
+                    "name": "admin",
+                    "type": "to"
+                },
+                {
+                    "email": email3,
+                    "name": "admin",
+                    "type": "to"
+                }
+            ],
+            "headers": {
+                "Reply-To": from_email
+            },
+            "important": False,
+            "track_opens": None,
+            "track_clicks": None,
+            "auto_text": None,
+            "auto_html": None,
+            "inline_css": None,
+            "url_strip_qs": None,
+            "preserve_recipients": None,
+            "view_content_link": None,
+            "bcc_address": None,
+            "tracking_domain": None,
+            "signing_domain": None,
+            "return_path_domain": None,
+            "merge": True,
+            "global_merge_vars": [
+                {
+                    "name": "merge1",
+                    "content": "merge1 content"
+                }
+            ],
+            "merge_vars": [
+                {
+                    "rcpt": "recipient.email@example.com",
+                    "vars": [
+                        {
+                            "name": "merge2",
+                            "content": "merge2 content"
+                        }
+                    ]
+                }
+            ],
+            "tags": [
+                "password-resets"
+            ],
+            "subaccount": None,
+            "google_analytics_domains": [
+                None
+            ],
+            "google_analytics_campaign": None,
+            "metadata": {
+                "website": None
+            },
+            "recipient_metadata": None,
+            "attachments": None,
+            "images": None
+        },
+        "async": False,
+        "ip_pool": "Main Pool",
+        "send_at": None
+    }
+    
+
+    result = urlfetch.fetch(url=url, payload=json.dumps(form_json), method=urlfetch.POST)
     
     
     

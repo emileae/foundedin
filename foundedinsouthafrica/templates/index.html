@@ -5,10 +5,10 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 		<title>Founded in South Africa - The most innovative startups in Africa</title>
-		<meta name="description" content="South Africa has a buzzing startup scene. and the economic gateway to Africaand have seen some successful startups launch in our backyard" />
+		<meta name="description" content="South Africa has a buzzing startup scene. and the economic gateway to Africa and have seen some successful startups launch in our backyard" />
 		<meta name="keywords" content="South Africa, Africa, South African, African, startups, entrepreneurs, innovation" />
 		
-        <meta property="og:title" content="Founded in South Africa - The most innovative startups in the South Africa" />
+        <meta property="og:title" content="Founded in South Africa - The most innovative startups in South Africa" />
 		<meta property="og:description" content="South Africa has a buzzing startup scene and is known as the economic gateway to Africa. We list innovative startups with African roots." />
 		<meta property="og:site_name" content="Founded in South Africa" />
 		<meta property="og:type" content="website" />
@@ -22,7 +22,7 @@
         <meta name="twitter:title" content="Founded in South Africa - The most innovative startups in South Africa" />
 		
         <meta name="author" content="Supernice" />
-		<link rel="shortcut icon" href="images/favicon.ico" />
+		<!--<link rel="shortcut icon" href="images/favicon.ico" />-->
         <link rel="apple-touch-icon-precomposed" href="http://foundedinsouthafrica.com/static/images/avatar.png" />
 		
 		<link rel="stylesheet" type="text/css" href="/static/css/default.css" />
@@ -59,20 +59,21 @@
 			</header>
 			{% endblock %}
 			{% block companies %}
-			<ul class="cbp-rfgrid">
-				{% for s in startups %}
-					<li>
-					<a href="{{s.q3}}" target="_blank"><img src="{{s.new_logo}}" />
-						<div>
-							<h3>{{s.q1}}</h3>
-						</div>
-					</a>
-				</li>
-				{% endfor %}
-			</ul>
+				<ul class="cbp-rfgrid">
+					{% for s in startups %}
+						<li>
+						<a href="{{s.q3}}" target="_blank"><img src="{{s.new_logo}}" />
+							<div>
+								<h3>{{s.q1}}</h3>
+							</div>
+						</a>
+					</li>
+					{% endfor %}
+				</ul>
 			{% endblock %}
 			{% block join %}
             <div class="join-box">
+            	{% block join_form %}
             	<a name="join" class="no-link"></a>
                 <span class="join-box-span">
                 	<strong>What do all these companies have in common?</strong><br>
@@ -117,6 +118,10 @@
 											<span><label for="q6">Contact person* (their name will not be published)</label></span>
 											<input id="q6" name="q6" type="text" data-validate="yes"/>
 										</li>
+										<li>
+											<span><label for="q7">email (optional, but nice to stay updated)</label></span>
+											<input id="q7" name="q7" type="email" data-validate=""/>
+										</li>
 									</ol><!-- /questions -->
 									<button class="submit" type="submit">Join</button>
 									<div class="controls">
@@ -136,25 +141,11 @@
             	</span>
 
                 <br><br>
+                {% endblock %}
 
-                <span class="join-box-span">
-                	Follow on 
-                	<a href="https://twitter.com/foundedinsa" target="_blank">
-                		<i class="fa fa-twitter-square"></i>&nbsp;Twitter
-                	</a> &nbsp;&middot;&nbsp; 
-                	<a href="/about">
-                		About&nbsp;the&nbsp;initiative
-                	</a> &nbsp;&middot;&nbsp; 
-                	<a href="mailto:hello@wearesupernice.com" target="_blank">
-                		Contact
-                	</a>
-                </span>
-                
-                <div align="center" style="width:170px; margin:0 auto;">
-                	<div class="fb-like" data-href="https://foundedinsouthafrica.com" data-layout="button" data-action="like" data-show-faces="false" data-share="true"></div>
-                    <div style="padding:5px;"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://foundedinsouthafrica.com/" data-via="foundedsa" data-count="none" data-dnt="true">Tweet</a></div>
-                </div>
+                {% include "follow.html" %}
 
+                {% block early_adopter %}
                 <span class="join-box-span">
                 	<h2>Become an</h2>
                 	<a id="register_ea" class="link join-button" href="#">early adopter</a>
@@ -189,6 +180,8 @@
 							We will only share your email address with startups we feel are trustworthy and can offer exciting opportunities to consumers, you will be able to unsubscribe at any time.
 						</p>
                 </div>
+
+                {% endblock %}
                 
             </div>
         {% endblock %}
@@ -209,7 +202,7 @@
 		</div>      
 
 	<!-- jQuery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
     <script type="text/javascript">
     	$("body").on("click", "#join_list", function(e){
@@ -253,8 +246,8 @@
 	{% block script %}
 	<script>
 		var theForm = document.getElementById( 'join_form' );
-                    //disable form autocomplete
-                    theForm.setAttribute( "autocomplete", "off" );
+        //disable form autocomplete
+        theForm.setAttribute( "autocomplete", "off" );
 
 		new stepsForm( theForm, {
 			onSubmit : function( form ) {
@@ -268,6 +261,7 @@
 					"q4": $("#q4").val(),
 					"q5": $("#q5").val(),
 					"q6": $("#q6").val(),
+					"q7": $("#q7").val(),
 				}
 
 				function success(data){
@@ -281,6 +275,7 @@
 					$("#q4").val("");
 					$("#q5").val("");
 					$("#q6").val("");
+					$("#q7").val("");
 			    };
 
 				$.ajax({
@@ -351,22 +346,19 @@
     
     <!-- Google Analytics -->
 	<script>
-      /*google analytics code*/
+      
     
     </script>
 	
 	<!-- Twitter -->
 	<script>
-	/* include twitter share button code here */
 	</script>
     
     <!-- Facebook -->
-	<div id="fb-root"></div>
-	<script>
-	/* include facebook share button code, and javascript sdk stuff here */
-	</script>
-	<script>
 
+    <div id="fb-root"></div>
+	<script>
+	
 	</script>
 	</body>
 </html>
