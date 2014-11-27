@@ -8,23 +8,73 @@ This a a very basic template for a webapp similar to http://foundedinholland.com
 Credit goes to:
 
 http://foundedinholland.com, for the cool idea and wicked frontend code
-https://github.com/codrops/MinimalForm, for the super cool sliding single input form
+https://github.com/codrops/MinimalForm, for the super cool sliding single input form, which was inspired by http://www.pagelanes.com/ who is a Foundedx member!
 
-This project is almost ready to be pasted into a google app engine project and deployed, the app.yaml should be adapted to take your project id into account, a mandrill key should be inserted in the utils.py file, so that early adopters can receive their mail, and then the necessary scripts for google analytics, twitter and facebook should be included in the index.html file.
+How to setup a page with this code:
+1) Download the google app engine sdk for python - https://cloud.google.com/appengine/downloads (if you're not on a mac you will need to make sure that python 2.7 is on your system - https://www.python.org/download/releases/2.7/)
+2) Once google app engine is downloaded, create a new project (probably file --> create a new project)
+3) Get a gmail address to use as an admin account for your foundedin page
+4) Go to http://cloud.google.com
+5) log in with your new gmail
+6) Select create a new project (blue button towards the top of the page)
+7) Name your project and take note of the unique project id (you can specify your own project id, google will let you know if its not unique), the project id will be your temporary appspot domain, eg. http://your-project-id.appspot.com
+8) Go back to your freshly installed google app engine launcher ( the one you downloaded in step 1 ) and create a project with the same name as the project you created in step 6, you will need to specify a folder to save the project, remember where this folder is.
+9) Download and unzip the contents of this repo, copy the contents from this repo and paste it into the new project's folder created in step 8, overwrite the existing project.
+10) Go into your new folder and open the file app.yaml in a text editor
+11) Change the first line of app.yaml to your project id see below:
 
-We've kept the scripts in the various html files, but these should be put in their own folder and minified in production.
+application: your-project-id
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
 
-Artwork specific to foundedinsouthafrica should be replaced, our artwork was greatly influenced by foundedinholland.com and was put together by Johann (https://www.behance.net/JohannduBruyn)
+12) Save the file, navigate to your app engine sdk and click deploy, you will have to provide your login details from step 3
+13) Navigate to your new appspot domain: http://your-project-id.appspot.com/dashboard, you will have to log in using your gmail details from step 3 since this is an admin page
+14) Fill out your founded in details... and navigate to your new founded in page: http://your-project-id.appspot.com
 
-================
+Some things to note:
 
-What this does...
-- Sets up a basic DB consisting of startups and early adopters
-- Each time a startup completes the form they are saved and await approval
-- Access the url '/admin' to see a list of startups, you will need to download their logo image, process it (change colour/size or whatever) and then upload the new image, google is very generous and provides 5GB(I think) free space for the blobstore.
-- Once an image is uploaded the startup is 'approved' and will appear on the front page
-- You can also delete startup submissions by clicking the delete button, this will remove a startup from the DB
-- We also included an early adopter form at the bottom of the page, this collects emails and promises to send them product offerings/ opportunities related to the startups... early adoption... use it for good and not evil, we dont want the foundedin initiative to be thought of as a spamming scheme
-- Some logic is included for unsubscribing from the mailing list
+You may have some problems deploying your project, where you get the error invalid username/password, this may be for a number of reasons, you can
+1 - go to https://www.google.com/settings/security/lesssecureapps, log in using your new gmail details and set your security to allow less secure apps to access the account
+2 - deploy using the command line by navigating to your project directory, typing:
+appcfg.py update . --oauth2
+you will be redirected to a login page in your browser, where you can login and deployment should go smoothly
+
+Also:
+
+The app works best if you have twitter and mandrill integrated
+
+To get your twitter API tokens go to: https://dev.twitter.com/, login with your foundedin twitter account and create a twitter app, you will have to verify your twitter account on mobile and then activate read & write permissions, once you have done that you can get your access tokens
+
+For mandrill:
+
+Signup for mandrill: https://mandrill.com/
+Create a mandrill app (straight forward), and get your mandrill key
+
+
+----
+
+Then to really get the most out of the repo, you can access the template mailer.html in the templates folder and change it accordingly to suit your foundedin style.
+
+
+---------------
+
+Some of the pages functionality:
+
+- Founders can upload their own companies as per normal, using pagelane's sweet form
+- You can curate and upload new, white logos on the backend
+- All data is accessible from the dashboard or through the google cloud console
+- you can collect mailers through the early adopter mailing list form
+
+- If the twitter api is activated, then a tweet will be sent out every time a new company logo is added (eg. New #startup on <bitly link>: <startup name> via <@yourtwitterhandle>)
+
+- If the mandrill api is activated then you will receive a notification email everytime a startup submits to your page and a confirmation email will be sent to every early adopter that signs up to your mailing list
+
+- you can access your early adopter emails as well as startup emails on the dashboard... use the emilas for good not evil, we dont want the Foundedx community to be known for spamming.
+
+..........if all this is too much for you look me up on slack and if I have a minute I'll help you out.
+
+
 
 

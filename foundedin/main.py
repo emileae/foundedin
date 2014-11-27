@@ -108,7 +108,11 @@ class HomePage(MainHandler):
         mail = model.MandrillApi.query().get()
         tw = model.TwitterApi.query().get()
         startups = model.Startup.query(model.Startup.approved == True).order(model.Startup.q1).fetch(500)
-        self.render("index.html", startups=startups, year=year, settings=settings, mail=mail, tw=tw)
+
+        if not settings:
+            self.response.out.write("If you are the admin for this page please navigate to /dashboard and complete the page setup")
+        else:
+            self.render("index.html", startups=startups, year=year, settings=settings, mail=mail, tw=tw)
 
 # add a startup... completed by prospective startups
 class AddStartup(MainHandler):
