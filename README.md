@@ -10,6 +10,10 @@ Credit goes to:
 http://foundedinholland.com, for the cool idea and wicked frontend code<br>
 https://github.com/codrops/MinimalForm, for the super cool sliding single input form, which was inspired by http://www.pagelanes.com/ who is a Foundedx member!<br>
 <br>
+<br>
+This repo is python based using the webapp2 framework, pretty much beginner Google App Engine stuff, although you dont have to know that to use this repo.
+<br>
+<br>
 How to setup a page with this code:<br>
 1) Download the google app engine sdk for python - https://cloud.google.com/appengine/downloads (if you're not on a mac you will need to make sure that python 2.7 is on your system - https://www.python.org/download/releases/2.7/)<br>
 2) Once google app engine is downloaded, create a new project (probably file --> create a new project)<br>
@@ -74,6 +78,12 @@ Some of the pages functionality:<br>
 - If the mandrill api is activated then you will receive a notification email everytime a startup submits to your page and a confirmation email will be sent to every early adopter that signs up to your mailing list<br>
 <br>
 - you can access your early adopter emails as well as startup emails on the dashboard... use the emilas for good not evil, we dont want the Foundedx community to be known for spamming.<br>
+<br>
+<br>
+If you use this repo to build your foundedin page you're pretty much set in most respects, hosting will be taken care of, scaling will be pretty much taken care of and if your traffic levels are not huge you'll remain on the free tier, so no hosting fees!!! yay!!! But you may need to add your credit details at some point to remain on the cloud paltform, even though you wont be charges, and of course if you have a large spike in traffic, say for example you land up on product hunt, then you might have to activate a credit card to remain live.<br>
+I think you have about 1GB of free storage on GAE, if you upload so many logos that you exceed that amount then you may also ahve to activate billing.
+You can read more about the google cloud platform at http://cloud.google.com
+<br>
 <br>
 ..........if all this is too much for you look me up on slack and if I have a minute I'll help you out.
 
