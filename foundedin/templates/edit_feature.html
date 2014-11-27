@@ -1,0 +1,156 @@
+{% extends "dashboard_base.html" %}
+
+{% block style %}
+    .dark{
+        background-color: rgb(100, 100, 100);
+    }
+{% endblock %}
+
+{% block page_name %}
+    Feature
+{% endblock %}
+
+
+{% block breadcrumbs %}Edit Feature{% endblock %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-lg-12">
+        <h3>Edit Feature</h3>
+            <form method="post" action="/dashboard/feature_edit/{{feature.key.id()}}" role="form">
+                
+                <div class="form-group">
+                    <label>Company Description</label>
+                    <textarea name="description" class="form-control" rows="3">{{feature.description}}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Founder(s)</label>
+                    <div id="founders">
+                        {% for f in feature.founder %}
+                            {% if f.twitter %}
+                                <br><input name="founder" type="text" class="form-control" value="{{f.founder}}, {{f.twitter}}">
+                            {% else %}
+                                <br><input name="founder" type="text" class="form-control" value="{{f.founder}}">
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <p id="founders_help" class="help-block">Enter name, followed by twitter handle (comma separated)</p>
+                </div>
+                <div class="form-group">
+                    <span id="add_founder" class="btn btn-primary">Add <i class="fa fa-plus"></i></span>
+                </div>
+                <div class="form-group">
+                    <label>Sound Cloud</label>
+                    <input name="podcast" class="form-control" type="text" value="{{feature.podcast}}">
+                    <p class="help-block">Link to podcast</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Choose a startup</label>
+                    <select name="startup_id" class="form-control">
+                        {% for s in startups %}
+                            {% if s.key == feature.startup %}
+                                <option value="{{s.key.id()}}" selected>{{s.q1}}</option>
+                            {% else %}
+                                <option value="{{s.key.id()}}">{{s.q1}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <input type="submit" class="btn btn-default add" value="Save">
+            </form>
+        </div>
+    </div>
+    
+    <hr>
+
+    <div class="well dark">
+        <div class="row">
+            <div class="col-lg-12">
+                <img src="{{feature.new_logo}}">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <form id="new_logo_form_{{feature.key.id()}}" action="" method="post" enctype="multipart/form-data" class="new_logo_form">
+                <input type="file" class="new_logo" name="new_logo" accept="image/*" />
+                <br>
+                <span class="featured_logo_submit btn btn-primary" data-id="{{feature.key.id()}}">Upload featured logo</span>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    
+    <script type="text/javascript">
+        $("body").on("click", "#add_founder", function(){
+
+            var html = '<br><input name="founder" class="form-control">';
+            $("#founders").append(html);
+
+        });
+    </script>
+
+    <script type="text/javascript">
+
+        $("body").on("click", ".featured_logo_submit", function(){
+            var feature_id = $(this).data("id");
+
+            function success(data){
+                $("#new_logo_form_"+feature_id).attr("action", data['url']);
+                $("#new_logo_form_"+feature_id).submit()
+            };
+
+            $.ajax({
+                type: "get",
+                data: {"feature_id": feature_id},
+                url: '/get_upload_url',
+                success: success
+            }).fail(function(e){
+                alert("error - add feature logo");
+            });
+
+        });
+
+    </script>
+
+{% endblock %}
+
+{% block modal %}
+    <div id="save_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title">Message</h4>
+            </div>
+          <div class="panel panel-success ext-center">Saved</div>
+        </div>
+      </div>
+    <div id="error_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title">Message</h4>
+            </div>
+
+          <div class="panel panel-danger ext-center">Error saving</div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+

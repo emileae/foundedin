@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<title>{{settings.seo_title}}</title>
+		<meta name="description" content="{{settings.seo_description}}" />
+		<meta name="keywords" content="{{settings.seo_keywords}}" />
+		
+        <meta property="og:title" content="{{settings.seo_title}}" />
+		<meta property="og:description" content="{{settings.seo_description}}" />
+		<meta property="og:site_name" content="{{settings.seo_title}}" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="{{settings.share_url}}" />
+		<meta property="og:image" content="" />
+
+        {% if tw %}
+        	<meta name="twitter:site" content="{{tw.tw_handle}}" />
+        {% endif %}
+        <meta name="twitter:title" content="{{settings.seo_title}}" />
+		
+        <link rel="shortcut icon" href="/static/favicon.png">
+
+        {% if settings.site_credit_name %}
+        	<meta name="author" content="{{settings.site_credit_name}}" />
+		{% endif %}
+
+        <link rel="apple-touch-icon-precomposed" href="http://foundedinnorway.com/static/images/fin_logo.png" />
+		
+		<link rel="stylesheet" type="text/css" href="/static/css/default.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/component.css" />
+        
+        <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+        <!-- Min form -->
+        <link rel="stylesheet" type="text/css" href="/static/css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/component_min_form.css" />
+
+		<style type="text/css">
+			body{
+				background-color: {{settings.bg_color}} !important;
+			}
+			a{
+				background-color: {{settings.link_color}};
+			}
+			.cbp-rfgrid li a div {
+				background: {{settings.logo_highlight_color}} !important;
+			}
+		</style>
+
+		{% block style %}
+		{% endblock %}
+
+
+		<script src="/static/js/modernizr.custom.js"></script>
+		<script type="text/javascript" src="/static/js/modernizr.custom_min_form.js"></script>
+	</head>
+	<body>
+		<div class="container">
+
+			<header class="clearfix">
+				<div class="clearfix">
+	        		<a href="/" class="no-link">
+	        		<div class="logo_container">
+	        				<span id="left_title">FOUNDED IN</span>
+
+								{{settings.svg_html|safe}}
+
+							<span id="right_title" class="capital">{{settings.name}}</span>
+	        		</div>
+	        		</a>
+        		</div>
+                
+                {% block header %}
+                
+                <div class="clearfix header_text">
+                	{{settings.intro_html|safe}}
+            	</div>
+
+                <span class="apply">Want to join this list? <a href="#join">Submit&nbsp;your&nbsp;startup.</a></span>
+                {% endblock %}
+                <br><br>
+
+			</header>
+			{% block companies %}
+				<ul class="cbp-rfgrid">
+					{% for s in startups %}
+						<li>
+						<a href="{{s.q3}}" target="_blank"><img src="{{s.new_logo}}" />
+							<div>
+								<h3>{{s.q1}}</h3>
+							</div>
+						</a>
+					</li>
+					{% endfor %}
+				</ul>
+			{% endblock %}
+			{% block join %}
+            <div class="join-box">
+            	<a name="join" class="no-link"></a>
+                <span class="join-box-span">
+                	<strong>What do all these companies have in common?</strong><br>
+		                1) {{settings.in_common_1}}<br>
+		                2) {{settings.in_common_2}}<br>
+		                3) {{settings.in_common_3}}<br><br>
+
+	                Does your startup meet these criteria and do you want to support this initiative?<br>
+
+	                <strong>
+	                	Submit your startup by joining below.
+	                </strong>
+	                <br><br><br>
+	                <h2>Startups</h2>
+	                <a id="join_list" class="link join-button" href="#">Join&nbsp;the&nbsp;list</a>
+	                <div id="form_container" class="transition">
+
+		                	<form id="join_form" class="simform" autocomplete="off">
+								<div class="simform-inner">
+									<ol class="questions">
+										<li>
+											<span><label for="q1">Startup name*</label></span>
+											<input id="q1" name="q1" type="text" data-validate="yes"/>
+										</li>
+										<li>
+											<span><label for="q2">Year founded*</label></span>
+											<input id="q2" name="q2" type="text" data-validate="yes"/>
+										</li>
+										<li>
+											<span><label for="q3">Web address*</label></span>
+											<input id="q3" name="q3" type="text" placeholder="http://" data-validate="yes"/>
+										</li>
+										<li>
+											<span><label for="q4">Twitter handle</label></span>
+											<input id="q4" name="q4" type="text" placeholder="eg. @wearesupernice"/>
+										</li>
+										<li>
+											<span><label for="q5">URL to high resolution (preferably white) logo*</label></span>
+											<input id="q5" name="q5" type="text" placeholder="http://" data-validate="yes"/>
+										</li>
+										<li>
+											<span><label for="q6">Contact person* (their name will not be published)</label></span>
+											<input id="q6" name="q6" type="text" data-validate="yes"/>
+										</li>
+										<li>
+											<span><label for="q7">email (optional, but nice to stay updated)</label></span>
+											<input id="q7" name="q7" type="email" data-validate=""/>
+										</li>
+									</ol><!-- /questions -->
+									<button class="submit" type="submit">Join</button>
+									<div class="controls">
+										<button class="next"></button>
+										<div class="progress"></div>
+										<span class="number">
+											<span class="number-current"></span>
+											<span class="number-total"></span>
+										</span>
+										<span class="error-message"></span>
+									</div><!-- / controls -->
+								</div><!-- /simform-inner -->
+								<span class="final-message"></span>
+							</form><!-- /simform -->
+	                </div>
+
+            	</span>
+
+                <br><br>
+
+                <span class="join-box-span">
+                	Follow on 
+                	{% if settings.follow_facebook %}
+                	<a href="{{settings.follow_facebook}}" target="_blank">
+                		<i class="fa fa-twitter-square"></i>&nbsp;Twitter
+                	</a> &nbsp;&middot;&nbsp; 
+                	{% endif %}
+                	{% if settings.follow_twitter %}
+                	<a href="{{settings.follow_twitter}}" target="_blank">
+                		<i class="fa fa-facebook-square"></i>&nbsp;Facebook
+                	</a> &nbsp;&middot;&nbsp; 
+                	{% endif %}
+                	{% if settings.follow_instagram %}
+                	<a href="{{settings.follow_instagram}}" target="_blank">
+                		<i class="fa fa-facebook-square"></i>&nbsp;Facebook
+                	</a> &nbsp;&middot;&nbsp; 
+                	{% endif %}
+                	{% if settings.follow_soundcloud %}
+                	<a href="{{settings.follow_soundcloud}}" target="_blank">
+                		<i class="fa fa-facebook-square"></i>&nbsp;Facebook
+                	</a> &nbsp;&middot;&nbsp; 
+                	{% endif %}
+                	<a href="/about">
+                		About&nbsp;the&nbsp;initiative
+                	</a> &nbsp;&middot;&nbsp; 
+                	<a href="mailto:{{mail.reply_to}}" target="_blank">
+                		Contact
+                	</a>
+                </span>
+                
+                <div align="center" style="width:170px; margin:0 auto;">
+                	<div class="fb-like" data-href="{{settings.share_url}}" data-layout="button" data-action="like" data-show-faces="false" data-share="true"></div>
+                    <div style="padding:5px;"><a href="https://twitter.com/share" class="twitter-share-button" data-url="{{settings.share_url}}" data-via="" data-count="none" data-dnt="true">Tweet</a></div>
+                </div>
+
+                <span class="join-box-span">
+                	<h2>Become an</h2>
+                	<a id="register_ea" class="link join-button" href="#">early adopter</a>
+
+            	</span>
+
+            	<div id="ea_form_container" class="transition">
+	                	<form id="ea_form" class="simform" autocomplete="off">
+							<div class="simform-inner">
+								<ol class="questions">
+									<li>
+										<input id="ea" name="ea" type="email" data-validate="yes" placeholder="email"/>
+									</li>
+								</ol><!-- /questions -->
+								<button class="submit" type="submit">Join</button>
+								<div class="controls">
+									<button class="next"></button>
+									<div class="progress"></div>
+									<span class="number">
+										<span class="number-current"></span>
+										<span class="number-total"></span>
+									</span>
+									<span class="error-message"></span>
+								</div><!-- / controls -->
+							</div><!-- /simform-inner -->
+							<span class="final-message"></span>
+						</form><!-- /simform -->
+						<p>
+							Share your email address with us and become an <a href="http://en.wikipedia.org/wiki/Early_adopter" target="_blank">early adopter</a>, we'll contact you if there are any exciting opportunities that our startups offer.
+						</p>
+						<p>
+							We will only share your email address with startups we feel are trustworthy and can offer exciting opportunities to consumers, you will be able to unsubscribe at any time.
+						</p>
+                </div>
+                
+            </div>
+        {% endblock %}
+        {% block footer %}
+            <footer>
+            	<span>
+            		{% if settings.site_credit_name %}
+            			{% if settings.site_credit %}
+            				Brought to you by <a href="{{settings.site_credit}}" target="_blank">{{settings.site_credit_name}}</a>. All the logos and trademarks used on this website belong to their rightful owners.<br>
+            			{% else %}
+            				Brought to you by {{settings.site_credit_name}}. All the logos and trademarks used on this website belong to their rightful owners.<br>
+            			{% endif %}
+            		{% endif %}
+            		{% if settings.logo_credit_name %}
+            			{% if settings.logo_credit %}
+                			Logo designed by <a href="{{settings.logo_credit}}" target="_blank">{{settings.logo_credit_name}}</a>.
+            			{% else %}
+            				Logo designed by {{settings.logo_credit_name}}.
+                		{% endif %}
+                	{% endif %}
+            	</span>
+                <!--<a href="http://foundedinnorway.com" class="no-link">
+                	<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="50px" height="50px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+						<path class="logo" d="M64.425,28.561c-0.783-3.459-6.787-19.515-8.093-21.473c-1.252-1.877-5.143-2.075-6.266-2.087  C50.065,5.001,50.064,5,50.064,5C50.045,5,50.022,5,50,5s-0.045,0-0.064,0c0,0-0.001,0.001-0.002,0.001  c-1.123,0.013-5.014,0.21-6.266,2.087c-1.306,1.958-7.31,18.014-8.093,21.473s1.787,5.372,4.683,6.582  c3.258,1.362,4.499,1.89,4.875,1.999c1.586,0.462,2.949,1.306,2.983,2.458c0.134,4.379-0.942,12.925-0.942,12.925  s-1.809,0.119-1.939,1.033s0.261,15.533,0,20.363c-0.261,4.829,0.392,19.058,1.175,20.232c0.715,1.072,3.166,0.84,3.591,0.791  c0.425,0.049,2.877,0.281,3.591-0.791c0.783-1.175,1.436-15.403,1.175-20.232c-0.261-4.83,0.131-19.449,0-20.363  s-1.939-1.033-1.939-1.033S51.75,43.979,51.884,39.6c0.035-1.152,1.397-1.997,2.983-2.458c0.376-0.109,1.617-0.637,4.875-1.999  C62.637,33.932,65.208,32.02,64.425,28.561z M59.529,28.478c0,0.264-0.145,0.478-0.323,0.478H40.421  c-0.179,0-0.323-0.214-0.323-0.478v-0.386L40.421,28h18.785l0.323,0.092V28.478z"/>
+					</svg>
+                </a>
+
+                <div style="margin: 30px">{{year}}</div>-->
+                <a href="http://foundedx.com" class="no-link">
+                	<img src="/static/images/Partner-badge.png" alt="Foundedx">
+                </a>
+
+            </footer>
+        {% endblock %}
+		</div>      
+
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+    	$("body").on("click", "#join_list", function(e){
+    		e.preventDefault();
+    		var $this = $(this);
+    		if ($this.hasClass("closed")){
+    			$("#form_container").css("height", "336px");
+    			$this.removeClass("closed");
+    			$this.addClass("open");
+    		}else if ($this.hasClass("open")){
+    			$("#form_container").css("height", "0px");
+    			$this.removeClass("open");
+    			$this.addClass("closed");
+    		}else {
+    			$("#form_container").css("height", "336px");
+    			$this.addClass("open");
+    		};
+    	});
+    	$("body").on("click", "#register_ea", function(e){
+    		e.preventDefault();
+    		var $this = $(this);
+    		if ($this.hasClass("closed")){
+    			$("#ea_form_container").css("height", "336px");
+    			$this.removeClass("closed");
+    			$this.addClass("open");
+    		}else if ($this.hasClass("open")){
+    			$("#ea_form_container").css("height", "0px");
+    			$this.removeClass("open");
+    			$this.addClass("closed");
+    		}else {
+    			$("#ea_form_container").css("height", "336px");
+    			$this.addClass("open");
+    		};
+    	});
+
+    </script>
+
+    <!-- Min form -->
+    <script src="/static/js/classie.js"></script>
+	<script src="/static/js/stepsForm.js"></script>
+	{% block script %}
+	<script>
+		var theForm = document.getElementById( 'join_form' );
+                    //disable form autocomplete
+                    theForm.setAttribute( "autocomplete", "off" );
+
+		new stepsForm( theForm, {
+			onSubmit : function( form ) {
+				// hide form
+				classie.addClass( theForm.querySelector( '.simform-inner' ), 'hide' );
+
+				var data = {
+					"q1": $("#q1").val(),
+					"q2": $("#q2").val(),
+					"q3": $("#q3").val(),
+					"q4": $("#q4").val(),
+					"q5": $("#q5").val(),
+					"q6": $("#q6").val(),
+					"q7": $("#q7").val(),
+				}
+
+				function success(data){
+			        // let's just simulate something...
+					var messageEl = theForm.querySelector( '.final-message' );
+					messageEl.innerHTML = 'Thank you for joining the initiative';
+					classie.addClass( messageEl, 'show' );
+					$("#q1").val("");
+					$("#q2").val("");
+					$("#q3").val("");
+					$("#q4").val("");
+					$("#q5").val("");
+					$("#q6").val("");
+					$("#q7").val("");
+			    };
+
+				$.ajax({
+			        type: "post",
+			        data: data,
+			        url: '/add_startup',
+			        success: success
+			    }).fail(function(e){
+			        alert("error - add startup");
+			    });
+
+			}
+		} );
+
+		var eaForm = document.getElementById( 'ea_form' );
+                    //disable form autocomplete
+                    eaForm.setAttribute( "autocomplete", "off" );
+
+		new stepsForm( eaForm, {
+			onSubmit : function( form ) {
+				// hide form
+				classie.addClass( eaForm.querySelector( '.simform-inner' ), 'hide' );
+
+				var data = {
+					"ea": $("#ea").val(),
+				}
+
+				function success(data){
+			        // let's just simulate something...
+					var messageEl = eaForm.querySelector( '.final-message' );
+					messageEl.innerHTML = 'Thank you for being a pioneer.';
+					classie.addClass( messageEl, 'show' );
+			    };
+
+				$.ajax({
+			        type: "post",
+			        data: data,
+			        url: '/add_ea',
+			        success: success
+			    }).fail(function(e){
+			        alert("error - add early adopter");
+			    });
+
+			}
+		} );
+
+	</script>
+
+	{% endblock %}
+
+	<!-- Smooth Scroll -->
+    <script>
+		$(function() {
+		  $('a[href*=#]:not([href=#])').click(function() {
+			if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+			  var target = $(this.hash);
+			  target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+			  if (target.length) {
+				$('html,body').animate({
+				  scrollTop: target.offset().top
+				}, 1000);
+				return false;
+			  }
+			}
+		  });
+		});
+    </script>
+    
+    <!-- Google Analytics -->
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-27809253-13', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+	
+	<!-- Twitter -->
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+	</script>
+    
+    <!-- Facebook -->
+
+    <div id="fb-root"></div>
+	<script>
+	(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&appId=700432146672748&version=v2.0";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+	</script>
+	</body>
+</html>

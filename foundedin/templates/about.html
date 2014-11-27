@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+{% block header %}
+
+	<header class="clearfix">
+        <h1>About Founded in {{settings.name}}</h1>
+        <span class="about">
+            {{settings.about_html|safe}}
+        </span>
+	</header>	
+
+{% endblock %}
+
+{% block companies %}
+{% endblock %}

@@ -1,0 +1,528 @@
+{% extends "dashboard_base.html" %}
+
+{% block style %}
+    .inline{
+        display: inline-block;
+    }
+{% endblock %}
+
+{% block page_name %}
+    General
+{% endblock %}
+
+{% block breadcrumbs %}general{% endblock %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-lg-12">
+        <h2>General Settings</h2>
+            <form method="post" action="/dashboard" role="form">
+                {% if settings and tw and mail %}
+                <h3><u>Page Name</u></h3>
+                <div class="form-group">
+                    <label>Founded in...</label>
+                    {% if settings.name %}
+                    <input name="name" type="text" class="form-control" placeholder="eg. Norway" value="{{settings.name}}">
+                    {% else %}
+                    <input name="name" type="text" class="form-control" placeholder="eg. Norway">
+                    {% endif %}
+                </div>
+
+                <h3><u>SVG Logo</u></h3>
+                <div class="form-group">
+                    <label>Your SVG logo code</label>
+                    {% if settings.svg_html %}
+                    <textarea name="svg_html" class="form-control">{{settings.svg_html}}</textarea>
+                    {% else %}
+                    <textarea name="svg_html" class="form-control"></textarea>
+                    {% endif %}
+                </div>
+
+                <h3><u>Page Styles</u></h3>
+                <div class="form-group">
+                    <label>Background Colour</label>
+                    {% if settings.bg_color %}
+                    <input name="bg_color" type="text" class="form-control" placeholder="eg. #ffffff" value="{{settings.bg_color}}">
+                    {% else %}
+                    <input name="bg_color" type="text" class="form-control" placeholder="eg. #ffffff">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>Link Colour</label>
+                    {% if settings.link_color %}
+                    <input name="link_color" type="text" class="form-control" placeholder="eg. #ffffff" value="{{settings.link_color}}">
+                    {% else %}
+                    <input name="link_color" type="text" class="form-control" placeholder="eg. #ffffff">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>Logo Highlight Colour (with opacity)</label>
+                    {% if settings.logo_highlight_color %}
+                    <input name="logo_highlight_color" type="text" class="form-control" placeholder="eg. rgba(0,38,100,0.5);" value="{{settings.logo_highlight_color}}">
+                    {% else %}
+                    <input name="logo_highlight_color" type="text" class="form-control" placeholder="eg. rgba(0,38,100,0.5);">
+                    {% endif %}
+                </div>
+
+                <h3><u>SEO</u></h3>
+                <div class="form-group">
+                    <label>Page title</label>
+                    {% if settings.seo_title %}
+                    <input name="seo_title" type="text" class="form-control" placeholder="eg. Founded in Norway" value="{{settings.seo_title}}">
+                    {% else %}
+                    <input name="seo_title" type="text" class="form-control" placeholder="eg. Founded in Norway">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>Page Description</label>
+                    {% if settings.seo_description %}
+                    <input name="seo_description" type="text" class="form-control" placeholder="eg. The best startups in Norway" value="{{settings.seo_description}}">
+                    {% else %}
+                    <input name="seo_description" type="text" class="form-control" placeholder="eg. The best startups in Norway">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>Page Keywords</label>
+                    {% if settings.seo_keywords %}
+                    <input name="seo_keywords" type="text" class="form-control" placeholder="eg. startup, innovative..." value="{{settings.seo_keywords}}">
+                    {% else %}
+                    <input name="seo_keywords" type="text" class="form-control" placeholder="eg. startup, innovative...">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>Domain (which url will be shared to facebook)</label>
+                    {% if settings.share_url %}
+                    <input name="share_url" type="text" class="form-control" placeholder="eg. http://foundedinnorway.com" value="{{settings.share_url}}">
+                    {% else %}
+                    <input name="share_url" type="text" class="form-control" placeholder="eg. http://foundedinnorway.com">
+                    {% endif %}
+                </div>
+
+
+                <h3><u>Front Page</u></h3>
+
+                <div class="form-group">
+                    <label>Intro HTML (small paragraph that appears on front page)</label>
+                    {% if settings.intro_html %}
+                    <textarea name="intro_html" class="form-control">{{settings.intro_html}}</textarea>
+                    {% else %}
+                    <textarea name="intro_html" class="form-control"></textarea>
+                    {% endif %}
+                </div>
+
+                <h4>What do all these companies have in common?</h4>
+                <div class="form-group">
+                    <label>1)</label>
+                    {% if settings.in_common_1 %}
+                    <input name="in_common_1" type="text" class="form-control" value="{{settings.in_common_1}}">
+                    {% else %}
+                    <input name="in_common_1" type="text" class="form-control">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>2)</label>
+                    {% if settings.in_common_2 %}
+                    <input name="in_common_2" type="text" class="form-control" value="{{settings.in_common_2}}">
+                    {% else %}
+                    <input name="in_common_2" type="text" class="form-control">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>3)</label>
+                    {% if settings.in_common_3 %}
+                    <input name="in_common_3" type="text" class="form-control" value="{{settings.in_common_3}}">
+                    {% else %}
+                    <input name="in_common_3" type="text" class="form-control">
+                    {% endif %}
+                </div>
+
+                <h4>Follow On:</h4>
+                <div class="form-group">
+                    <label>Facebook</label>
+                    {% if settings.follow_facebook %}
+                    <input name="follow_facebook" type="text" class="form-control" value="{{settings.follow_facebook}}">
+                    {% else %}
+                    <input name="follow_facebook" type="text" class="form-control">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>Twitter</label>
+                    {% if settings.follow_twitter %}
+                    <input name="follow_twitter" type="text" class="form-control" value="{{settings.follow_twitter}}">
+                    {% else %}
+                    <input name="follow_twitter" type="text" class="form-control">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>Instagram</label>
+                    {% if settings.follow_instagram %}
+                    <input name="follow_instagram" type="text" class="form-control" value="{{settings.follow_instagram}}">
+                    {% else %}
+                    <input name="follow_instagram" type="text" class="form-control">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>Sound Cloud </label>
+                    {% if settings.follow_soundcloud %}
+                    <input name="follow_soundcloud" type="text" class="form-control" value="{{settings.follow_soundcloud}}">
+                    {% else %}
+                    <input name="follow_soundcloud" type="text" class="form-control">
+                    {% endif %}
+                </div>
+
+                <h4>Brought to you by</h4>
+                 <div class="form-group">
+                    <label>Company Name</label>
+                    {% if settings.site_credit_name %}
+                    <input name="site_credit_name" type="text" class="form-control" placeholder="eg. Supernice" value="{{settings.site_credit_name}}">
+                    {% else %}
+                    <input name="site_credit_name" type="text" class="form-control" placeholder="eg. Supernice">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>Company URL</label>
+                    {% if settings.site_credit %}
+                    <input name="site_credit" type="text" class="form-control" placeholder="eg. http://wearesupernice.com" value="{{settings.site_credit}}">
+                    {% else %}
+                    <input name="site_credit" type="text" class="form-control" placeholder="eg. http://wearesupernice.com">
+                    {% endif %}
+                </div>
+
+                <h4>Logo Credit</h4>
+                <div class="form-group">
+                    <label>Designer Name</label>
+                    {% if settings.logo_credit_name %}
+                    <input name="logo_credit_name" type="text" class="form-control" placeholder="eg. Johann du Bruyn" value="{{settings.logo_credit_name}}">
+                    {% else %}
+                    <input name="logo_credit_name" type="text" class="form-control" placeholder="eg. Johann du Bruyn">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>Designer URL</label>
+                    {% if settings.logo_credit %}
+                    <input name="logo_credit" type="text" class="form-control" placeholder="eg. http://johann.me" value="{{settings.logo_credit}}">
+                    {% else %}
+                    <input name="logo_credit" type="text" class="form-control" placeholder="eg. http://johann.me">
+                    {% endif %}
+                </div>
+
+                <hr>
+
+                <h3><u>About Page</u></h3>
+                <div class="form-group">
+                    <label>About HTML (More in depth text that appears on the about/learn more page)</label>
+                    {% if settings.about_html %}
+                    <textarea name="about_html" class="form-control">{{settings.about_html}}</textarea>
+                    {% else %}
+                    <textarea name="about_html" class="form-control"></textarea>
+                    {% endif %}
+                </div>
+
+                <h3><u>TWITTER API (need to create a twitter app, activate read & write permissions and get the necessary tokens)</u></h3>
+                <div class="form-group">
+                    <label>Your twitter handle</label>
+                    {% if tw.tw_handle %}
+                    <input name="tw_handle" class="form-control" placeholder="eg. @foundedinnorway" value="{{tw.tw_handle}}">
+                    {% else %}
+                    <input name="tw_handle" class="form-control" placeholder="eg. @foundedinnorway">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>Shortened link to your Foundedx page</label>
+                    {% if tw.tw_short_url %}
+                    <input name="tw_short_url" class="form-control" placeholder="eg. bit.ly/1ugm5eG" value="{{tw.tw_short_url}}">
+                    {% else %}
+                    <input name="tw_short_url" class="form-control" placeholder="eg. bit.ly/1ugm5eG">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>CONSUMER_KEY</label>
+                    {% if tw.tw_consumer_key %}
+                    <input name="tw_consumer_key" class="form-control" value="{{tw.tw_consumer_key}}">
+                    {% else %}
+                    <input name="tw_consumer_key" class="form-control">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>CONSUMER_SECRET</label>
+                    {% if tw.tw_consumer_secret %}
+                    <input name="tw_consumer_secret" class="form-control" value="{{tw.tw_consumer_secret}}">
+                    {% else %}
+                    <input name="tw_consumer_secret" class="form-control">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>ACCESS_TOKEN_KEY</label>
+                    {% if tw.tw_access_token_key %}
+                    <input name="tw_access_token_key" class="form-control" value="{{tw.tw_access_token_key}}">
+                    {% else %}
+                    <input name="tw_access_token_key" class="form-control">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>ACCESS_TOKEN_SECRET</label>
+                    {% if tw.tw_access_token_secret %}
+                    <input name="tw_access_token_secret" class="form-control" value="{{tw.tw_access_token_secret}}">
+                    {% else %}
+                    <input name="tw_access_token_secret" class="form-control">
+                    {% endif %}
+                </div>
+
+                <h3><u>Mandrill API (need to create a mandrill account, create an app and get the mandrill api key)</u></h3>
+                <h4>Notification when a startup is added</h4>
+                <div class="form-group">
+                    <label>Notification email</label>
+                    {% if mail.notification_email %}
+                    <input name="notification_email" class="form-control" value="{{mail.notification_email}}">
+                    {% else %}
+                    <input name="notification_email" class="form-control">
+                    {% endif %}
+                </div>
+                <h4>For the early adopter email</h4>
+                <div class="form-group">
+                    <label>Mandrill Key</label>
+                    {% if mail.mandrill_key %}
+                    <input name="mandrill_key" class="form-control" value="{{mail.mandrill_key}}">
+                    {% else %}
+                    <input name="mandrill_key" class="form-control">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>Reply To email</label>
+                    {% if mail.reply_to %}
+                    <input name="reply_to" class="form-control" value="{{mail.reply_to}}">
+                    {% else %}
+                    <input name="reply_to" class="form-control">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>Email Subject Line</label>
+                    {% if mail.subject_line %}
+                    <input name="subject_line" class="form-control" value="{{mail.subject_line}}">
+                    {% else %}
+                    <input name="subject_line" class="form-control">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>From Email</label>
+                    {% if mail.from_email %}
+                    <input name="from_email" class="form-control" value="{{mail.from_email}}">
+                    {% else %}
+                    <input name="from_email" class="form-control">
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label>From Name</label>
+                    {% if mail.from_name %}
+                    <input name="from_name" class="form-control" value="{{mail.from_name}}">
+                    {% else %}
+                    <input name="from_name" class="form-control">
+                    {% endif %}
+                </div>
+
+                {% else %}
+
+                <h3><u>Page Name</u></h3>
+                <div class="form-group">
+                    <label>Founded in...</label>
+                    <input name="name" type="text" class="form-control" placeholder="eg. Norway" value="{{settings.name}}">
+                </div>
+
+                <h3><u>SVG Logo</u></h3>
+                <div class="form-group">
+                    <label>Your SVG logo code</label>
+                    <textarea name="svg_html" class="form-control">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Ebene_1" x="0px" y="0px" viewBox="0 0 30 30" enable-background="new 0 0 30 30" xml:space="preserve" height="100px" width="100px">
+<g>
+    <path d="M21.1,3c0.2,0,0.3,0,0.5,0c1.9,0.2,3.3,0.9,4.2,2.1c1,1.3,1.4,3.3,1,5.6c-0.2,1.4-0.5,2.3-0.9,3.4   c-0.4,1.2-0.8,2.5-1.2,4.6c-0.2,1.3-0.9,4.6-0.9,4.6l0,0l0,0c-0.4,2.4-1.4,3.5-3.4,3.5c-0.2,0-0.5,0-0.7,0c-0.9-0.1-1.5-0.4-2-1   C16.9,24.7,17,23,17,22.3l0.3-2.4v-0.1v-0.1c0-2.4-0.1-3.8-0.2-5.4s-0.2-3.5-0.2-7.2C17,4.9,18.8,3,21.1,3 M21.1,2   C18.4,2,16,4.2,16,7.4c0,7.1,0.5,7.5,0.4,12.5l-0.3,2.4c-0.2,2,0.1,5.2,3.5,5.6c0.3,0,0.6,0.1,0.9,0.1c3.4,0,4.1-2.7,4.4-4.3   c0,0,0.8-3.4,0.9-4.7c0.6-3.8,1.6-4.9,2-8c0.6-4.1-0.7-8.2-6.1-8.9C21.5,2.1,21.3,2,21.1,2L21.1,2z"/>
+</g>
+<g>
+    <path d="M8.9,3C11.2,3,13,4.9,13,7.4c0,3.6-0.1,5.5-0.2,7.2c-0.1,1.6-0.2,2.9-0.2,5.4v0.1v0.1l0.3,2.4c0.1,0.7,0.2,2.4-0.7,3.5   c-0.4,0.6-1.1,0.9-2,1c-0.3,0-0.5,0-0.7,0c-2,0-3-1.1-3.4-3.5l0,0l0,0c0,0-0.7-3.3-0.9-4.6c-0.3-2.1-0.8-3.4-1.2-4.6   c-0.3-1-0.7-2-0.9-3.4c-0.3-2.3,0-4.3,1-5.6c1-1.4,2.4-2.1,4.3-2.3C8.5,3.1,8.7,3,8.9,3 M8.9,2C8.7,2,8.5,2,8.3,2   c-5.4,0.7-6.8,4.8-6.1,9c0.5,3.1,1.4,4.2,2,8c0.2,1.3,0.9,4.7,0.9,4.7c0.2,1.6,1,4.3,4.4,4.3c0.3,0,0.6,0,0.9-0.1   c3.4-0.4,3.7-3.6,3.5-5.6l-0.3-2.4c-0.1-5,0.4-5.4,0.4-12.5C14,4.2,11.6,2,8.9,2L8.9,2z"/>
+</g>
+<g>
+    <path d="M22,5c-2.9,1.4-4.5,6.1-4.6,7.8c-0.2,2.1,0,3.2,0.1,4c0.1,1,0.6,1.4,1.1,1.4c0.6,0,1-0.7,0.4-1.7c-2-3,0.7-7.7,3.1-10   c2.8,4.7,3.9,11,1,11.2c-1.1,0.1-0.7,1.5,0.2,1.5c0.4,0,0.9-0.3,1.4-1c0.6-0.9,0.7-1.4,0.9-2.4C25.8,14.4,25.6,7.3,22,5L22,5z"/>
+</g>
+<g>
+    <path d="M8,5c-3.7,2.4-3.9,9.4-3.5,10.8c0.2,1,0.3,1.5,0.9,2.4c0.5,0.7,1,1,1.4,1c0.9,0,1.4-1.4,0.2-1.5c-2.9-0.2-1.9-6.5,1-11.2   c2.3,2.3,5.1,7,3.1,10c-0.7,1-0.2,1.7,0.4,1.7c0.4,0,0.9-0.4,1.1-1.4c0.1-0.8,0.3-1.9,0.1-4C12.5,11.1,11,6.3,8,5L8,5z"/>
+</g>
+</svg>
+                    </textarea>
+                </div>
+
+                <h3><u>Page Styles</u></h3>
+                <div class="form-group">
+                    <label>Background Colour</label>
+                    <input name="bg_color" type="text" class="form-control" placeholder="eg. #ffffff">
+                </div>
+                <div class="form-group">
+                    <label>Link Colour</label>
+                    <input name="link_color" type="text" class="form-control" placeholder="eg. #ffffff">
+                </div>
+                <div class="form-group">
+                    <label>Logo Highlight Colour</label>
+                    <input name="logo_highlight_color" type="text" class="form-control" placeholder="eg. #ffffff">
+                </div>
+
+                <h3><u>SEO</u></h3>
+                <div class="form-group">
+                    <label>Page title</label>
+                    <input name="seo_title" type="text" class="form-control" placeholder="eg. Founded in Norway">
+                </div>
+                <div class="form-group">
+                    <label>Page Description</label>
+                    <input name="seo_description" type="text" class="form-control" placeholder="eg. The best startups in Norway">
+                </div>
+                <div class="form-group">
+                    <label>Page Keywords</label>
+                    <input name="seo_keywords" type="text" class="form-control" placeholder="eg. startup, innovative...">
+                </div>
+                <div class="form-group">
+                    <label>Domain (which url will be shared to facebook)</label>
+                    <input name="share_url" type="text" class="form-control" placeholder="eg. http://foundedinnorway.com">
+                </div>
+
+
+                <h3><u>Front Page</u></h3>
+
+                <div class="form-group">
+                    <label>Intro HTML (small paragraph that appears on front page)</label>
+                    <textarea name="intro_html" class="form-control"></textarea>
+                </div>
+
+                <h4>What do all these companies have in common?</h4>
+                <div class="form-group">
+                    <label>1)</label>
+                    <input name="in_common_1" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>2)</label>
+                    <input name="in_common_2" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>3)</label>
+                    <input name="in_common_3" type="text" class="form-control">
+                </div>
+
+                <h4>Follow On:</h4>
+                <div class="form-group">
+                    <label>Facebook</label>
+                    <input name="follow_facebook" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Twitter</label>
+                    <input name="follow_twitter" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Instagram</label>
+                    <input name="follow_instagram" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Sound Cloud </label>
+                    <input name="follow_soundcloud" type="text" class="form-control">
+                </div>
+
+                <h4>Brought to you by</h4>
+                 <div class="form-group">
+                    <label>Company Name</label>
+                    <input name="site_credit_name" type="text" class="form-control" placeholder="eg. Supernice">
+                </div>
+                <div class="form-group">
+                    <label>Company URL</label>
+                    <input name="site_credit" type="text" class="form-control" placeholder="eg. http://wearesupernice.com">
+                </div>
+
+                <h4>Logo Credit</h4>
+                <div class="form-group">
+                    <label>Designer Name</label>
+                    <input name="logo_credit_name" type="text" class="form-control" placeholder="eg. Johann du Bruyn">
+                </div>
+                <div class="form-group">
+                    <label>Designer URL</label>
+                    <input name="logo_credit" type="text" class="form-control" placeholder="eg. http://johann.me">
+                </div>
+
+                <hr>
+
+                <h3><u>About Page</u></h3>
+                <div class="form-group">
+                    <label>About HTML (More in depth text that appears on the about/learn more page)</label>
+                    <textarea name="about_html" class="form-control"></textarea>
+                </div>
+
+                <h3><u>TWITTER API</u></h3>
+                <div class="form-group">
+                    <label>Your twitter handle</label>
+                    <input name="tw_handle" class="form-control" placeholder="eg. @foundedinnorway">
+                </div>
+                <div class="form-group">
+                    <label>Shortened link to your Foundedx page</label>
+                    <input name="tw_short_url" class="form-control" placeholder="eg. bit.ly/1ugm5eG">
+                </div>
+                <div class="form-group">
+                    <label>CONSUMER_KEY</label>
+                    <input name="tw_consumer_key" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>CONSUMER_SECRET</label>
+                    <input name="tw_consumer_secret" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>ACCESS_TOKEN_KEY</label>
+                    <input name="tw_access_token_key" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>ACCESS_TOKEN_SECRET</label>
+                    <input name="tw_access_token_secret" class="form-control">
+                </div>
+
+                <h3><u>Mandrill API</u></h3>
+                <h4>Notification when a startup is added</h4>
+                <div class="form-group">
+                    <label>Notification email</label>
+                    <input name="notification_email" class="form-control">
+                </div>
+                <h4>For the early adopter email</h4>
+                <div class="form-group">
+                    <label>Mandrill Key</label>
+                    <input name="mandrill_key" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Reply To email</label>
+                    <input name="reply_to" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Email Subject Line</label>
+                    <input name="subject_line" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>From Email</label>
+                    <input name="from_email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>From Name</label>
+                    <input name="from_name" class="form-control">
+                </div>
+
+                {% endif %}
+
+                <input type="submit" value="Save">
+
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+
+    <script type="text/javascript">
+    </script>
+
+{% endblock %}
+
+
+
+
+
+
+
+

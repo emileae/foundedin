@@ -1,0 +1,34 @@
+<span class="join-box-span">
+	Follow on 
+	{% if settings.follow_facebook %}
+	<a href="{{settings.follow_facebook}}" target="_blank">
+		<i class="fa fa-twitter-square"></i>&nbsp;Twitter
+	</a> &nbsp;&middot;&nbsp; 
+	{% endif %}
+	{% if settings.follow_twitter %}
+	<a href="{{settings.follow_twitter}}" target="_blank">
+		<i class="fa fa-facebook-square"></i>&nbsp;Facebook
+	</a> &nbsp;&middot;&nbsp; 
+	{% endif %}
+	{% if settings.follow_instagram %}
+	<a href="{{settings.follow_instagram}}" target="_blank">
+		<i class="fa fa-facebook-square"></i>&nbsp;Facebook
+	</a> &nbsp;&middot;&nbsp; 
+	{% endif %}
+	{% if settings.follow_soundcloud %}
+	<a href="{{settings.follow_soundcloud}}" target="_blank">
+		<i class="fa fa-facebook-square"></i>&nbsp;Facebook
+	</a> &nbsp;&middot;&nbsp; 
+	{% endif %}
+	<a href="/about">
+		About&nbsp;the&nbsp;initiative
+	</a> &nbsp;&middot;&nbsp; 
+	<a href="mailto:{{mail.reply_to}}" target="_blank">
+		Contact
+	</a>
+</span>
+
+<div align="center" style="width:170px; margin:0 auto;">
+	<div class="fb-like" data-href="{{settings.share_url}}" data-layout="button" data-action="like" data-show-faces="false" data-share="true"></div>
+    <div style="padding:5px;"><a href="https://twitter.com/share" class="twitter-share-button" data-url="{{settings.share_url}}" data-via="" data-count="none" data-dnt="true">Tweet</a></div>
+</div>
