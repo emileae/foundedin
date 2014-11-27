@@ -23,11 +23,14 @@ How to setup a page with this code:<br>
 10) Go into your new folder and open the file app.yaml in a text editor<br>
 11) Change the first line of app.yaml to your project id see below:<br>
 <br>
-application: your-project-id<br>
-version: 1<br>
-runtime: python27<br>
-api_version: 1<br>
-threadsafe: yes<br>
+
+'''
+application: your-project-id
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+'''
 
 12) Save the file, navigate to your app engine sdk and click deploy, you will have to provide your login details from step 3<br>
 13) Navigate to your new appspot domain: http://your-project-id.appspot.com/dashboard, you will have to log in using your gmail details from step 3 since this is an admin page<br>
