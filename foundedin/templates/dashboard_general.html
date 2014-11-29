@@ -320,6 +320,16 @@
                     {% endif %}
                 </div>
 
+                <h4>Some custom CSS (not necessary)</h4>
+                <div class="form-group">
+                    <label>CSS</label>
+                    {% if settings.css %}
+                    <textarea name="css" class="form-control">{{settings.css}}</textarea>
+                    {% else %}
+                    <textarea name="css" class="form-control"></textarea>
+                    {% endif %}
+                </div>
+
                 {% else %}
 
                 <h3><u>Page Name</u></h3>
@@ -501,6 +511,12 @@
                 <div class="form-group">
                     <label>From Name</label>
                     <input name="from_name" class="form-control">
+                </div>
+
+                <h4>Some custom CSS (not necessary)</h4>
+                <div class="form-group">
+                    <label>CSS</label>
+                    <textarea name="css" class="form-control"></textarea>
                 </div>
 
                 {% endif %}

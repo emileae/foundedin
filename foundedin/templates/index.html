@@ -49,6 +49,11 @@
 			}
 		</style>
 
+		<!-- template custom styles -->
+		<style>
+			{{settings.css|safe}}
+		</style>
+
 		{% block style %}
 		{% endblock %}
 
@@ -170,22 +175,22 @@
                 	Follow on 
                 	{% if settings.follow_facebook %}
                 	<a href="{{settings.follow_facebook}}" target="_blank">
-                		<i class="fa fa-twitter-square"></i>&nbsp;Twitter
+                		<i class="fa fa-facebook-square"></i>&nbsp;Facebook
                 	</a> &nbsp;&middot;&nbsp; 
                 	{% endif %}
                 	{% if settings.follow_twitter %}
                 	<a href="{{settings.follow_twitter}}" target="_blank">
-                		<i class="fa fa-facebook-square"></i>&nbsp;Facebook
+                		<i class="fa fa-twitter-square"></i>&nbsp;Twitter
                 	</a> &nbsp;&middot;&nbsp; 
                 	{% endif %}
                 	{% if settings.follow_instagram %}
                 	<a href="{{settings.follow_instagram}}" target="_blank">
-                		<i class="fa fa-facebook-square"></i>&nbsp;Facebook
+                		<i class="fa fa-instagram-square"></i>&nbsp;Instagram
                 	</a> &nbsp;&middot;&nbsp; 
                 	{% endif %}
                 	{% if settings.follow_soundcloud %}
                 	<a href="{{settings.follow_soundcloud}}" target="_blank">
-                		<i class="fa fa-facebook-square"></i>&nbsp;Facebook
+                		<i class="fa fa-soundcloud-square"></i>&nbsp;SoundCloud
                 	</a> &nbsp;&middot;&nbsp; 
                 	{% endif %}
                 	<a href="/about">

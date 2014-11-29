@@ -70,6 +70,7 @@ class Settings(ndb.Model):
     logo_credit = ndb.StringProperty()
     logo_credit_name = ndb.StringProperty()
     about_html = ndb.TextProperty()
+    css = ndb.TextProperty()
 
 
 

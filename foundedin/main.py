@@ -190,6 +190,7 @@ class Dashboard(MainHandler):
         seo_description = self.request.get("seo_description")
         seo_keywords = self.request.get("seo_keywords")
         share_url = self.request.get("share_url")
+        css = self.request.get("css")
 
         tw_handle = self.request.get("tw_handle")
         tw_short_url = self.request.get("tw_short_url")
@@ -232,6 +233,7 @@ class Dashboard(MainHandler):
                     logo_credit=logo_credit,
                     logo_credit_name=logo_credit_name,
                     about_html=about_html,
+                    css=css
                 )
             settings.put()
         else:
@@ -258,6 +260,7 @@ class Dashboard(MainHandler):
             settings.logo_credit=logo_credit
             settings.logo_credit_name=logo_credit_name
             settings.about_html=about_html
+            settings.css=css
             settings.put()
 
         tw = model.TwitterApi.query().get()
