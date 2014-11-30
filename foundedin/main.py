@@ -103,16 +103,33 @@ def tweet(status):
 #serves the homepage
 class HomePage(MainHandler):
     def get(self):
+        curs = Cursor(urlsafe=self.request.get('cursor'))
+        year = datetime.datetime.now().year
+        settings = model.Settings.query().get()
+        mail = model.MandrillApi.query().get()
+        tw = model.TwitterApi.query().get()
+        #startups = model.Startup.query(model.Startup.approved == True).order(model.Startup.q1).fetch(500)
+
+        startups, next_curs, more = model.Startup.query(model.Startup.approved == True).order(model.Startup.q1).fetch_page(500, start_cursor=curs)
+        if more and next_curs:
+            next_curs = next_curs.urlsafe()
+        else:
+            next_curs = False
+
+        if not settings:
+            self.response.out.write("If you are the admin for this page please navigate to /dashboard and complete the page setup")
+        else:
+            self.render("index.html", startups=startups, year=year, settings=settings, mail=mail, tw=tw, next_curs=next_curs)
+
+class ViewLogos(MainHandler):
+    def get(self):
         year = datetime.datetime.now().year
         settings = model.Settings.query().get()
         mail = model.MandrillApi.query().get()
         tw = model.TwitterApi.query().get()
         startups = model.Startup.query(model.Startup.approved == True).order(model.Startup.q1).fetch(500)
 
-        if not settings:
-            self.response.out.write("If you are the admin for this page please navigate to /dashboard and complete the page setup")
-        else:
-            self.render("index.html", startups=startups, year=year, settings=settings, mail=mail, tw=tw)
+        self.render("admin.html", startups=startups, year=year, settings=settings, mail=mail, tw=tw)
 
 # add a startup... completed by prospective startups
 class AddStartup(MainHandler):
@@ -137,6 +154,7 @@ class AddStartup(MainHandler):
         try:
             utils.send_notification_mail(q1)
         except:
+            logging.error("no notification sent")
             pass
 
 #serve the admin page
@@ -508,6 +526,9 @@ class EarlyAdopterEmails(MainHandler):
 class EarlyAdopter(MainHandler):
     def post(self):
         ea = self.request.get("ea")
+        settings = model.Settings.query().get()
+        mail = model.MandrillApi.query().get()
+        tw = model.TwitterApi.query().get()
 
         existing_email = model.EarlyAdopter.query(model.EarlyAdopter.ea == ea).get()
 
@@ -518,7 +539,7 @@ class EarlyAdopter(MainHandler):
             ea_id = ea.key.id()
 
             t = jinja_env.get_template("mailer.html")
-            html = t.render(ea_id=ea_id)
+            html = t.render(ea_id=ea_id, settings=settings, tw=tw, mail=mail)
 
             utils.send_mail(ea.ea, ea_id, html)
 
@@ -801,6 +822,7 @@ app = webapp2.WSGIApplication([
     ('/', HomePage),
     ('/add_startup', AddStartup),
     ('/admin', Admin),
+    ('/view_logos', ViewLogos),
     ('/archive', Archive),
     #('/tweet/(\w+)', TweetStartup),
     ('/about', About),

@@ -100,6 +100,9 @@
 					</li>
 					{% endfor %}
 				</ul>
+				{% if next_curs %}
+					<a id="join_list" class="link join-button" href="/?cursor={{next_curs}}">See more</a>
+				{% endif %}
 			{% endblock %}
 			{% block join %}
             <div class="join-box">

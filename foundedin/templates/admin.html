@@ -15,31 +15,12 @@
 
 
 {% block header %}
-	<h1>Admin</h1>
 	<ul id="startup_admin_list">
 		{% for s in startups %}
 			<li id="startup_{{s.key.id()}}">
-				<div class="admin_unit">
-					<a href="{{s.q3}}" target="_blank">{{s.q1}}</a>
-				</div>
 
 				<div class="admin_unit">
-					<img src="{{s.q5}}" width="100px"> / <img src="{{s.new_logo}}" width="100px">
-				</div>
-				
-				<div class="admin_unit">
-					<button class="delete" data-id="{{s.key.id()}}">Delete</button>
-				</div>
-
-				<div class="admin_unit">
-					<form id="new_logo_form_{{s.key.id()}}" action="" method="post" enctype="multipart/form-data" class="new_logo_form">
-	                    <input type="file" class="new_logo" name="new_logo" accept="image/*" />
-	                    <span class="new_logo_submit button" data-id="{{s.key.id()}}">Upload new logo</span>
-	                </form>
-            	</div>
-
-            	<div class="admin_unit">
-					<!--<a href="/tweet/{{s.key.id()}}">Tweet</a>-->
+					<img src="{{s.new_logo}}" width="100px">
 				</div>
 
             	<hr>
@@ -53,49 +34,6 @@
 {% endblock %}
 
 {% block script %}
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript">
-
-	$("body").on("click", ".delete", function(){
-		var del_id = $(this).data("id");
-		
-		function success(data){
-	        $("#startup_"+del_id).remove();
-	    };
-
-	    var data = {"id": del_id};
-		
-		$.ajax({
-	        type: "post",
-	        data: data,
-	        url: '/delete_startup',
-	        success: success
-	    }).fail(function(e){
-	        alert("error - delete startup");
-	    });
-
-	});
-
-	$("body").on("click", ".new_logo_submit", function(){
-		var startup_id = $(this).data("id");
-
-		function success(data){
-	        $("#new_logo_form_"+startup_id).attr("action", data['url']);
-	        $("#new_logo_form_"+startup_id).submit()
-	    };
-
-		$.ajax({
-	        type: "get",
-	        data: {"startup_id": startup_id},
-	        url: '/get_upload_url',
-	        success: success
-	    }).fail(function(e){
-	        alert("error - delete startup");
-	    });
-
-	});
-</script>
 
 {% endblock %}
 

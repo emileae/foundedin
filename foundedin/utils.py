@@ -139,11 +139,12 @@ def send_notification_mail(name):
     html = "<p>A new startup has been added: <u>%s</u></p>" % name
 
     mail = model.MandrillApi.query().get()
-    if mail:
 
+
+    if mail:
         #modify text to suite your startup, also see the mailer.html template and adapt for a sweet html mailer
         form_json = {
-            "key": MANDRILL_KEY,
+            "key": mail.mandrill_key,
             "message": {
                 "html": html,
                 "text": "New Startup",

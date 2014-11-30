@@ -843,12 +843,9 @@ body.outlook p {
                           <tr>
 
                             <td class="six sub-columns">
-                              <svg id="header_logo_svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
-                              <path class="logo_path" d="M64.425,28.561c-0.783-3.459-6.787-19.515-8.093-21.473c-1.252-1.877-5.143-2.075-6.266-2.087  C50.065,5.001,50.064,5,50.064,5C50.045,5,50.022,5,50,5s-0.045,0-0.064,0c0,0-0.001,0.001-0.002,0.001  c-1.123,0.013-5.014,0.21-6.266,2.087c-1.306,1.958-7.31,18.014-8.093,21.473s1.787,5.372,4.683,6.582  c3.258,1.362,4.499,1.89,4.875,1.999c1.586,0.462,2.949,1.306,2.983,2.458c0.134,4.379-0.942,12.925-0.942,12.925  s-1.809,0.119-1.939,1.033s0.261,15.533,0,20.363c-0.261,4.829,0.392,19.058,1.175,20.232c0.715,1.072,3.166,0.84,3.591,0.791  c0.425,0.049,2.877,0.281,3.591-0.791c0.783-1.175,1.436-15.403,1.175-20.232c-0.261-4.83,0.131-19.449,0-20.363  s-1.939-1.033-1.939-1.033S51.75,43.979,51.884,39.6c0.035-1.152,1.397-1.997,2.983-2.458c0.376-0.109,1.617-0.637,4.875-1.999  C62.637,33.932,65.208,32.02,64.425,28.561z M59.529,28.478c0,0.264-0.145,0.478-0.323,0.478H40.421  c-0.179,0-0.323-0.214-0.323-0.478v-0.386L40.421,28h18.785l0.323,0.092V28.478z"/>
-                            </svg>
                             </td>
                             <td class="six sub-columns last" align="right" style="text-align:right; vertical-align:middle;">
-                              <span class="template-label">Founded in Norway</span>
+                              <span class="template-label">Founded in {{settings.name}}</span>
                             </td>
                             <td class="expander"></td>
 
@@ -879,12 +876,9 @@ body.outlook p {
                           <td>
 
                             <h1>Hi,</h1>
-                						<p class="lead">This is to confirm your registration to <a href="http://foundedinnorway.com" class="green" target="_blank">Founded in Norway's</a> early adopter mailing list</p>
+                						<p class="lead">This is to confirm your registration to <a href="{{settings.share_url}}" class="green" target="_blank">Founded in {{settings.name}}'s</a> early adopter mailing list</p>
                             <div id="hero_image_container">
-                  						<!--<svg id="header_logo_svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="200px" height="200px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
-                              <path class="logo_path" d="M64.425,28.561c-0.783-3.459-6.787-19.515-8.093-21.473c-1.252-1.877-5.143-2.075-6.266-2.087  C50.065,5.001,50.064,5,50.064,5C50.045,5,50.022,5,50,5s-0.045,0-0.064,0c0,0-0.001,0.001-0.002,0.001  c-1.123,0.013-5.014,0.21-6.266,2.087c-1.306,1.958-7.31,18.014-8.093,21.473s1.787,5.372,4.683,6.582  c3.258,1.362,4.499,1.89,4.875,1.999c1.586,0.462,2.949,1.306,2.983,2.458c0.134,4.379-0.942,12.925-0.942,12.925  s-1.809,0.119-1.939,1.033s0.261,15.533,0,20.363c-0.261,4.829,0.392,19.058,1.175,20.232c0.715,1.072,3.166,0.84,3.591,0.791  c0.425,0.049,2.877,0.281,3.591-0.791c0.783-1.175,1.436-15.403,1.175-20.232c-0.261-4.83,0.131-19.449,0-20.363  s-1.939-1.033-1.939-1.033S51.75,43.979,51.884,39.6c0.035-1.152,1.397-1.997,2.983-2.458c0.376-0.109,1.617-0.637,4.875-1.999  C62.637,33.932,65.208,32.02,64.425,28.561z M59.529,28.478c0,0.264-0.145,0.478-0.323,0.478H40.421  c-0.179,0-0.323-0.214-0.323-0.478v-0.386L40.421,28h18.785l0.323,0.092V28.478z"/>
-                            </svg>-->
-                            <img src="http://foundedinnorway.com/static/images/fin_logo.png" style="position: absolute;left:0px;right:0px;margin:auto">
+                            <img src="{{settings.share_url}}/static/images/banner.png" style="position: absolute;left:0px;right:0px;margin:auto">
                             </div>
 
                           </td>
@@ -905,7 +899,7 @@ body.outlook p {
                           <td>
 
                             <h3>Congratulations!</h3>
-                            <p>You've elected to be a part of Norway's bleeding edge, its our mission to send you products, offerings and tech voodoo from Norway's game changers. If you'd like to change the way we send you emails please feel free to <a href="mailto:hello@wearesupernice.com" class="green">contact us</a> or adjust your settings <a href="http://foundedinnorway.com/change_email?ea_id={{ea_id}}" class="green">here</a></p>
+                            <p>You've elected to be a part of {{settings.name}}'s bleeding edge, its our mission to send you products, offerings and tech voodoo from {{settings.name}}'s game changers. If you'd like to change the way we send you emails please feel free to <a href="mailto:{{mail.reply_to}}" class="green">contact us</a> or adjust your settings <a href="{{settings.share_url}}/change_email?ea_id={{ea_id}}" class="green">here</a></p>
 
                           </td>
                           <td class="expander"></td>
@@ -931,7 +925,7 @@ body.outlook p {
                             <table class="tiny-button twitter">
                               <tr>
                                 <td>
-                                  <a href="https://twitter.com/foundedinnorway">Twitter</a>
+                                  <a href="{{settings.follow_twitter}}">Twitter</a>
                                 </td>
                               </tr>
                             </table>
@@ -950,7 +944,7 @@ body.outlook p {
                         <tr>
                           <td class="last right-text-pad">
                             <h5>Contact Info:</h5>
-                            <p>Email: <a href="mailto:hello@wearesupernice.com" class="green">hello@wearesupernice.com</a></p>
+                            <p>Email: <a href="mailto:{{mail.reply_to}}" class="green">{{mail.reply_to}}</a></p>
                           </td>
                           <td class="expander"></td>
                         </tr>
@@ -969,7 +963,7 @@ body.outlook p {
                         <tr>
                           <td align="center">
                             <center>
-                              <!--<p style="text-align:center;"><a href="#" class="green">Terms</a> | <a href="#" class="green">Privacy</a> | --><a href='http://foundedinnorway.com/unsubscribe?ea_id={{ea_id}}' mc:disable-tracking class="green">unsubscribe</a></p>
+                              <!--<p style="text-align:center;"><a href="#" class="green">Terms</a> | <a href="#" class="green">Privacy</a> | --><a href='{{settings.share_url}}/unsubscribe?ea_id={{ea_id}}' mc:disable-tracking class="green">unsubscribe</a></p>
                             </center>
                           </td>
                           <td class="expander"></td>
